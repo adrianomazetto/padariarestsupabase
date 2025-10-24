@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Documentação - Tutorial Supabase</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração personalizada do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'padaria-blue': '#3B82F6',
+                        'padaria-green': '#10B981',
+                        'padaria-red': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Prism.js para syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-padaria-blue to-padaria-green text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-4xl">📚</span>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-bold">Documentação</h1>
+                        <p class="text-blue-100 text-sm">Guia completo passo a passo</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-4">
+                    <a href="index.html" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                        🏠 Início
+                    </a>
+                    <a href="docs.html" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                        📚 Documentação
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- NAVEGAÇÃO LATERAL -->
+        <div class="lg:flex lg:space-x-8">
+            
+            <!-- SIDEBAR -->
+            <aside class="lg:w-1/4 mb-8 lg:mb-0">
+                <div class="bg-white rounded-xl shadow-lg p-6 sticky top-8">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">📋 Índice</h3>
+                    <nav class="space-y-2">
+                        <a href="#introducao" class="block text-padaria-blue hover:text-blue-600 transition">1. Introdução</a>
+                        <a href="#pre-requisitos" class="block text-padaria-blue hover:text-blue-600 transition">2. Pré-requisitos</a>
+                        <a href="#supabase-setup" class="block text-padaria-blue hover:text-blue-600 transition">3. Configurar Supabase</a>
+                        <a href="#backend-setup" class="block text-padaria-blue hover:text-blue-600 transition">4. Configurar Backend</a>
+                        <a href="#frontend-setup" class="block text-padaria-blue hover:text-blue-600 transition">5. Configurar Frontend</a>
+                        <a href="#testando" class="block text-padaria-blue hover:text-blue-600 transition">6. Testando</a>
+                        <a href="#problemas" class="block text-padaria-blue hover:text-blue-600 transition">7. Problemas Comuns</a>
+                        <a href="#proximos-passos" class="block text-padaria-blue hover:text-blue-600 transition">8. Próximos Passos</a>
+                    </nav>
+                </div>
+            </aside>
+            
+            <!-- CONTEÚDO PRINCIPAL -->
+            <div class="lg:w-3/4">
+                
+                <!-- INTRODUÇÃO -->
+                <section id="introducao" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">🎯</span>
+                        <h2 class="text-2xl font-bold text-gray-800">1. Introdução</h2>
+                    </div>
+                    
+                    <div class="prose max-w-none">
+                        <p class="text-gray-600 mb-4">
+                            Bem-vindo ao tutorial completo de desenvolvimento full-stack com Supabase! 
+                            Neste projeto, você aprenderá a criar uma aplicação web completa do zero.
+                        </p>
+                        
+                        <div class="bg-blue-50 border-l-4 border-padaria-blue p-4 mb-6">
+                            <h4 class="font-bold text-padaria-blue mb-2">🎓 O que você vai aprender:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700">
+                                <li>Criar e configurar um banco de dados no Supabase</li>
+                                <li>Desenvolver uma API REST com Node.js e Express</li>
+                                <li>Criar uma interface responsiva com HTML, CSS e JavaScript</li>
+                                <li>Conectar frontend e backend</li>
+                                <li>Implementar operações CRUD (Create, Read, Delete)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 border-l-4 border-padaria-green p-4">
+                            <h4 class="font-bold text-padaria-green mb-2">⏱️ Tempo estimado:</h4>
+                            <p class="text-gray-700">30-45 minutos para completar todo o tutorial</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- PRÉ-REQUISITOS -->
+                <section id="pre-requisitos" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">📋</span>
+                        <h2 class="text-2xl font-bold text-gray-800">2. Pré-requisitos</h2>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-gray-800 mb-3">💻 Software necessário:</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-green-500">✅</span>
+                                    <span>Node.js (versão 16 ou superior)</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-green-500">✅</span>
+                                    <span>Editor de código (VS Code recomendado)</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-green-500">✅</span>
+                                    <span>Navegador web moderno</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-green-500">✅</span>
+                                    <span>Terminal/Prompt de comando</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-gray-800 mb-3">🧠 Conhecimentos básicos:</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-blue-500">📘</span>
+                                    <span>HTML e CSS básico</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-blue-500">📘</span>
+                                    <span>JavaScript básico</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-blue-500">📘</span>
+                                    <span>Conceitos de API REST</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span class="text-blue-500">📘</span>
+                                    <span>Uso básico do terminal</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                        <h4 class="font-bold text-yellow-800 mb-2">⚠️ Verificar Node.js:</h4>
+                        <p class="text-yellow-700 mb-2">Abra o terminal e execute:</p>
+                        <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm"><code>node --version
+npm --version</code></pre>
+                        <p class="text-yellow-700 mt-2">Se não estiver instalado, baixe em: <a href="https://nodejs.org" class="text-blue-600 underline" target="_blank">nodejs.org</a></p>
+                    </div>
+                </section>
+                
+                <!-- CONFIGURAR SUPABASE -->
+                <section id="supabase-setup" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">🚀</span>
+                        <h2 class="text-2xl font-bold text-gray-800">3. Configurar Supabase</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Passo 1 -->
+                        <div class="border-l-4 border-padaria-blue pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 1: Criar conta no Supabase</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                                <li>Acesse <a href="https://supabase.com" class="text-blue-600 underline" target="_blank">supabase.com</a></li>
+                                <li>Clique em "Start your project"</li>
+                                <li>Faça login com GitHub ou email</li>
+                            </ol>
+                        </div>
+                        
+                        <!-- Passo 2 -->
+                        <div class="border-l-4 border-padaria-green pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 2: Criar novo projeto</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                                <li>Clique em "New Project"</li>
+                                <li>Escolha uma organização</li>
+                                <li>Nome do projeto: <code class="bg-gray-100 px-2 py-1 rounded">padaria-tutorial</code></li>
+                                <li>Crie uma senha forte para o banco</li>
+                                <li>Escolha uma região próxima (Brazil East)</li>
+                                <li>Clique em "Create new project"</li>
+                            </ol>
+                        </div>
+                        
+                        <!-- Passo 3 -->
+                        <div class="border-l-4 border-yellow-400 pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 3: Obter chaves de acesso</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-600">
+                                <li>Aguarde o projeto ser criado (1-2 minutos)</li>
+                                <li>Vá em <strong>Settings → API</strong></li>
+                                <li>Copie a <strong>URL</strong> e a <strong>anon public key</strong></li>
+                                <li>Guarde essas informações, você precisará delas!</li>
+                            </ol>
+                        </div>
+                        
+                        <!-- Passo 4 -->
+                        <div class="border-l-4 border-padaria-red pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 4: Criar tabela de produtos</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-600 mb-4">
+                                <li>Vá em <strong>SQL Editor</strong></li>
+                                <li>Cole e execute o código SQL abaixo:</li>
+                            </ol>
+                            
+                            <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-sql">-- Criar tabela de produtos
+CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    descricao TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Configurar RLS (Row Level Security)
+ALTER TABLE produtos ENABLE ROW LEVEL SECURITY;
+
+-- Política para permitir leitura pública
+CREATE POLICY "Permitir leitura pública" ON produtos
+    FOR SELECT USING (true);
+
+-- Política para permitir inserção pública
+CREATE POLICY "Permitir inserção pública" ON produtos
+    FOR INSERT WITH CHECK (true);
+
+-- Política para permitir exclusão pública
+CREATE POLICY "Permitir exclusão pública" ON produtos
+    FOR DELETE USING (true);
+
+-- Conceder permissões
+GRANT SELECT, INSERT, DELETE ON produtos TO anon;
+GRANT SELECT, INSERT, DELETE ON produtos TO authenticated;
+GRANT USAGE ON SEQUENCE produtos_id_seq TO anon;
+GRANT USAGE ON SEQUENCE produtos_id_seq TO authenticated;
+
+-- Dados iniciais para demonstração
+INSERT INTO produtos (nome, preco, descricao) VALUES
+('Pão Francês', 0.50, 'Pão tradicional brasileiro crocante por fora e macio por dentro'),
+('Croissant', 3.50, 'Croissant francês artesanal com massa folhada'),
+('Bolo de Chocolate', 25.00, 'Bolo de chocolate com cobertura cremosa');</code></pre>
+                            
+                            <div class="mt-4 bg-green-50 p-3 rounded">
+                                <p class="text-green-700 text-sm">✅ Se executou sem erros, sua tabela está pronta!</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- CONFIGURAR BACKEND -->
+                <section id="backend-setup" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">⚙️</span>
+                        <h2 class="text-2xl font-bold text-gray-800">4. Configurar Backend</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Passo 1 -->
+                        <div class="border-l-4 border-padaria-blue pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 1: Instalar dependências</h4>
+                            <p class="text-gray-600 mb-2">Abra o terminal na pasta do projeto e execute:</p>
+                            <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm"><code>cd backend
+npm install</code></pre>
+                        </div>
+                        
+                        <!-- Passo 2 -->
+                        <div class="border-l-4 border-padaria-green pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 2: Configurar variáveis de ambiente</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-600 mb-4">
+                                <li>Copie o arquivo de exemplo:</li>
+                            </ol>
+                            <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm mb-4"><code>cp .env.example .env</code></pre>
+                            
+                            <ol start="2" class="list-decimal list-inside space-y-2 text-gray-600 mb-4">
+                                <li>Edite o arquivo <code class="bg-gray-100 px-2 py-1 rounded">.env</code> com suas chaves do Supabase:</li>
+                            </ol>
+                            <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm"><code>SUPABASE_URL=https://seu-projeto-id.supabase.co
+SUPABASE_ANON_KEY=sua-chave-anon-aqui
+PORT=3000</code></pre>
+                        </div>
+                        
+                        <!-- Passo 3 -->
+                        <div class="border-l-4 border-yellow-400 pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 3: Iniciar o servidor</h4>
+                            <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm mb-4"><code>npm start</code></pre>
+                            
+                            <div class="bg-green-50 p-3 rounded">
+                                <p class="text-green-700 text-sm font-medium mb-2">✅ Se tudo estiver correto, você verá:</p>
+                                <pre class="bg-green-100 text-green-800 p-2 rounded text-xs"><code>🚀 ================================
+🥖 SERVIDOR PADARIA INICIADO!
+🚀 ================================
+📡 Servidor rodando na porta: 3000</code></pre>
+                            </div>
+                        </div>
+                        
+                        <!-- Passo 4 -->
+                        <div class="border-l-4 border-padaria-red pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Passo 4: Testar a API</h4>
+                            <p class="text-gray-600 mb-2">Abra o navegador e acesse:</p>
+                            <ul class="space-y-2 text-gray-600">
+                                <li>🧪 <a href="http://localhost:3000/api/test" class="text-blue-600 underline" target="_blank">http://localhost:3000/api/test</a></li>
+                                <li>📋 <a href="http://localhost:3000/api/produtos" class="text-blue-600 underline" target="_blank">http://localhost:3000/api/produtos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- CONFIGURAR FRONTEND -->
+                <section id="frontend-setup" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">🎨</span>
+                        <h2 class="text-2xl font-bold text-gray-800">5. Configurar Frontend</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-padaria-blue pl-4">
+                            <h4 class="font-bold text-gray-800 mb-2">Abrir a aplicação</h4>
+                            <p class="text-gray-600 mb-4">O frontend já está pronto! Você pode abrir de duas formas:</p>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-blue-50 p-4 rounded">
+                                    <h5 class="font-bold text-blue-800 mb-2">Opção 1: Arquivo direto</h5>
+                                    <ol class="list-decimal list-inside space-y-1 text-blue-700 text-sm">
+                                        <li>Navegue até a pasta <code>frontend/</code></li>
+                                        <li>Clique duplo em <code>index.html</code></li>
+                                        <li>A página abrirá no navegador</li>
+                                    </ol>
+                                </div>
+                                
+                                <div class="bg-green-50 p-4 rounded">
+                                    <h5 class="font-bold text-green-800 mb-2">Opção 2: Live Server (VS Code)</h5>
+                                    <ol class="list-decimal list-inside space-y-1 text-green-700 text-sm">
+                                        <li>Instale a extensão "Live Server"</li>
+                                        <li>Clique direito em <code>index.html</code></li>
+                                        <li>Selecione "Open with Live Server"</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TESTANDO -->
+                <section id="testando" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">🧪</span>
+                        <h2 class="text-2xl font-bold text-gray-800">6. Testando a Aplicação</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-green-50 border-l-4 border-padaria-green p-4">
+                            <h4 class="font-bold text-green-800 mb-3">✅ Checklist de funcionamento:</h4>
+                            <ul class="space-y-2 text-green-700">
+                                <li class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded">
+                                    <span>Backend rodando na porta 3000</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded">
+                                    <span>Frontend abre sem erros</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded">
+                                    <span>Status de conexão mostra "online"</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded">
+                                    <span>Lista de produtos carrega</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded">
+                                    <span>Consegue cadastrar novo produto</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <input type="checkbox" class="rounded">
+                                    <span>Consegue excluir produto</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 border-l-4 border-padaria-blue p-4">
+                            <h4 class="font-bold text-blue-800 mb-2">🎯 Teste completo:</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-blue-700">
+                                <li>Abra o frontend no navegador</li>
+                                <li>Verifique se os produtos iniciais aparecem</li>
+                                <li>Cadastre um novo produto (ex: "Pão de Mel", R$ 3,00)</li>
+                                <li>Verifique se aparece na lista</li>
+                                <li>Exclua um produto</li>
+                                <li>Atualize a página e veja se as mudanças persistem</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- PROBLEMAS COMUNS -->
+                <section id="problemas" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">🆘</span>
+                        <h2 class="text-2xl font-bold text-gray-800">7. Problemas Comuns</h2>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Problema 1 -->
+                        <div class="border border-red-200 rounded-lg p-4">
+                            <h4 class="font-bold text-red-800 mb-2">❌ "Configurações do Supabase não encontradas"</h4>
+                            <p class="text-red-700 mb-2"><strong>Causa:</strong> Arquivo .env não existe ou está vazio</p>
+                            <p class="text-red-700 mb-2"><strong>Solução:</strong></p>
+                            <ul class="list-disc list-inside text-red-600 text-sm space-y-1">
+                                <li>Verifique se o arquivo <code>.env</code> existe na pasta backend</li>
+                                <li>Confirme se contém as chaves corretas do Supabase</li>
+                                <li>Reinicie o servidor após editar o .env</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Problema 2 -->
+                        <div class="border border-red-200 rounded-lg p-4">
+                            <h4 class="font-bold text-red-800 mb-2">❌ "permission denied for table produtos"</h4>
+                            <p class="text-red-700 mb-2"><strong>Causa:</strong> Políticas RLS não configuradas corretamente</p>
+                            <p class="text-red-700 mb-2"><strong>Solução:</strong></p>
+                            <ul class="list-disc list-inside text-red-600 text-sm space-y-1">
+                                <li>Execute novamente o SQL completo de criação da tabela</li>
+                                <li>Verifique se as políticas foram criadas no Supabase</li>
+                                <li>Confirme se as permissões foram concedidas</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Problema 3 -->
+                        <div class="border border-red-200 rounded-lg p-4">
+                            <h4 class="font-bold text-red-800 mb-2">❌ "EADDRINUSE: address already in use"</h4>
+                            <p class="text-red-700 mb-2"><strong>Causa:</strong> Porta 3000 já está sendo usada</p>
+                            <p class="text-red-700 mb-2"><strong>Solução:</strong></p>
+                            <ul class="list-disc list-inside text-red-600 text-sm space-y-1">
+                                <li>Mude a porta no arquivo .env (ex: PORT=3001)</li>
+                                <li>Ou pare outros serviços na porta 3000</li>
+                                <li>Reinicie o servidor</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Problema 4 -->
+                        <div class="border border-red-200 rounded-lg p-4">
+                            <h4 class="font-bold text-red-800 mb-2">❌ Frontend não carrega dados</h4>
+                            <p class="text-red-700 mb-2"><strong>Causa:</strong> Backend não está rodando ou URL incorreta</p>
+                            <p class="text-red-700 mb-2"><strong>Solução:</strong></p>
+                            <ul class="list-disc list-inside text-red-600 text-sm space-y-1">
+                                <li>Confirme se o backend está rodando (npm start)</li>
+                                <li>Teste a API diretamente: http://localhost:3000/api/test</li>
+                                <li>Verifique a URL no arquivo script.js</li>
+                                <li>Abra o console do navegador (F12) para ver erros</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- PRÓXIMOS PASSOS -->
+                <section id="proximos-passos" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <span class="text-3xl">🚀</span>
+                        <h2 class="text-2xl font-bold text-gray-800">8. Próximos Passos</h2>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-blue-800 mb-4">🎯 Melhorias sugeridas:</h4>
+                            <ul class="space-y-2 text-blue-700">
+                                <li class="flex items-center space-x-2">
+                                    <span>📝</span>
+                                    <span>Adicionar edição de produtos</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>🔍</span>
+                                    <span>Implementar busca e filtros</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>📱</span>
+                                    <span>Melhorar responsividade mobile</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>🎨</span>
+                                    <span>Adicionar upload de imagens</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>📊</span>
+                                    <span>Criar dashboard com estatísticas</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-4">📚 Conceitos para estudar:</h4>
+                            <ul class="space-y-2 text-green-700">
+                                <li class="flex items-center space-x-2">
+                                    <span>🔐</span>
+                                    <span>Autenticação de usuários</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>⚡</span>
+                                    <span>Real-time com Supabase</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>🗄️</span>
+                                    <span>Storage de arquivos</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>🚀</span>
+                                    <span>Deploy em produção</span>
+                                </li>
+                                <li class="flex items-center space-x-2">
+                                    <span>🧪</span>
+                                    <span>Testes automatizados</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-gradient-to-r from-padaria-blue to-padaria-green text-white p-6 rounded-lg text-center">
+                        <h3 class="text-xl font-bold mb-2">🎉 Parabéns!</h3>
+                        <p class="mb-4">Você criou sua primeira aplicação full-stack com Supabase!</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="index.html" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                                🏠 Voltar ao App
+                            </a>
+                            <a href="https://supabase.com/docs" target="_blank" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                                📖 Docs Supabase
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <span class="text-2xl">📚</span>
+                <span class="text-lg font-semibold">Tutorial Supabase</span>
+            </div>
+            <p class="text-gray-400 mb-4">
+                Documentação completa para aprender desenvolvimento full-stack
+            </p>
+            <div class="flex justify-center space-x-6 text-sm">
+                <a href="index.html" class="hover:text-padaria-blue transition">🏠 Início</a>
+                <a href="docs.html" class="hover:text-padaria-blue transition">📚 Documentação</a>
+                <a href="https://supabase.com" target="_blank" class="hover:text-padaria-blue transition">🚀 Supabase</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para navegação suave -->
+    <script>
+        // Navegação suave para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Destacar seção ativa na navegação
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('aside nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('font-bold', 'text-blue-800');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('font-bold', 'text-blue-800');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

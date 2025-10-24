@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥖 Padaria Tutorial - Sistema de Produtos</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração personalizada do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'padaria-blue': '#3B82F6',
+                        'padaria-green': '#10B981',
+                        'padaria-red': '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-padaria-blue to-padaria-green text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-4xl">🥖</span>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-bold">Padaria Tutorial</h1>
+                        <p class="text-blue-100 text-sm">Sistema de Produtos com Supabase</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-4">
+                    <a href="index.html" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                        🏠 Início
+                    </a>
+                    <a href="docs.html" class="bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                        📚 Documentação
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- STATUS DA CONEXÃO -->
+        <div id="status-conexao" class="mb-6 p-4 rounded-lg border hidden">
+            <div class="flex items-center space-x-2">
+                <span id="status-icon">⏳</span>
+                <span id="status-texto">Verificando conexão...</span>
+            </div>
+        </div>
+
+        <!-- FORMULÁRIO DE CADASTRO -->
+        <section class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex items-center space-x-3 mb-6">
+                <span class="text-3xl">➕</span>
+                <h2 class="text-2xl font-bold text-gray-800">Cadastrar Produto</h2>
+            </div>
+            
+            <form id="form-produto" class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <!-- Nome do Produto -->
+                    <div>
+                        <label for="nome" class="block text-sm font-medium text-gray-700 mb-2">
+                            Nome do Produto *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            required
+                            placeholder="Ex: Pão Francês"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-padaria-blue focus:border-transparent transition"
+                        >
+                    </div>
+                    
+                    <!-- Preço -->
+                    <div>
+                        <label for="preco" class="block text-sm font-medium text-gray-700 mb-2">
+                            Preço (R$) *
+                        </label>
+                        <input 
+                            type="number" 
+                            id="preco" 
+                            name="preco" 
+                            step="0.01" 
+                            min="0.01"
+                            required
+                            placeholder="Ex: 2.50"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-padaria-blue focus:border-transparent transition"
+                        >
+                    </div>
+                </div>
+                
+                <!-- Descrição -->
+                <div>
+                    <label for="descricao" class="block text-sm font-medium text-gray-700 mb-2">
+                        Descrição (opcional)
+                    </label>
+                    <textarea 
+                        id="descricao" 
+                        name="descricao" 
+                        rows="3"
+                        placeholder="Ex: Pão tradicional brasileiro, crocante por fora e macio por dentro"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-padaria-blue focus:border-transparent transition resize-none"
+                    ></textarea>
+                </div>
+                
+                <!-- Botão de Envio -->
+                <div class="flex justify-end">
+                    <button 
+                        type="submit" 
+                        id="btn-cadastrar"
+                        class="bg-padaria-blue text-white px-6 py-3 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <span id="btn-texto">➕ Cadastrar Produto</span>
+                        <span id="btn-loading" class="hidden">⏳ Cadastrando...</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- LISTA DE PRODUTOS -->
+        <section class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">📋</span>
+                    <h2 class="text-2xl font-bold text-gray-800">Produtos Cadastrados</h2>
+                </div>
+                <button 
+                    id="btn-atualizar"
+                    class="bg-padaria-green text-white px-4 py-2 rounded-lg hover:bg-green-600 transition flex items-center space-x-2"
+                >
+                    <span>🔄</span>
+                    <span>Atualizar</span>
+                </button>
+            </div>
+            
+            <!-- Loading -->
+            <div id="loading-produtos" class="text-center py-8 hidden">
+                <div class="inline-flex items-center space-x-2 text-gray-600">
+                    <span class="animate-spin text-2xl">⏳</span>
+                    <span>Carregando produtos...</span>
+                </div>
+            </div>
+            
+            <!-- Lista Vazia -->
+            <div id="lista-vazia" class="text-center py-12 hidden">
+                <span class="text-6xl mb-4 block">📦</span>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">Nenhum produto cadastrado</h3>
+                <p class="text-gray-500">Cadastre o primeiro produto usando o formulário acima!</p>
+            </div>
+            
+            <!-- Grid de Produtos -->
+            <div id="grid-produtos" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 hidden">
+                <!-- Os produtos serão inseridos aqui via JavaScript -->
+            </div>
+            
+            <!-- Contador de Produtos -->
+            <div id="contador-produtos" class="mt-6 text-center text-gray-600 hidden">
+                <span id="total-produtos">0</span> produto(s) cadastrado(s)
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <span class="text-2xl">🥖</span>
+                <span class="text-lg font-semibold">Tutorial Supabase</span>
+            </div>
+            <p class="text-gray-400 mb-4">
+                Projeto educacional para aprender desenvolvimento full-stack
+            </p>
+            <div class="flex justify-center space-x-6 text-sm">
+                <a href="index.html" class="hover:text-padaria-blue transition">🏠 Início</a>
+                <a href="docs.html" class="hover:text-padaria-blue transition">📚 Documentação</a>
+                <a href="https://supabase.com" target="_blank" class="hover:text-padaria-blue transition">🚀 Supabase</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE CONFIRMAÇÃO -->
+    <div id="modal-confirmacao" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 max-w-md mx-4">
+            <div class="text-center">
+                <span class="text-4xl mb-4 block">🗑️</span>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Confirmar Exclusão</h3>
+                <p class="text-gray-600 mb-6">
+                    Tem certeza que deseja excluir o produto "<span id="produto-nome"></span>"?
+                </p>
+                <div class="flex space-x-3">
+                    <button 
+                        id="btn-cancelar"
+                        class="flex-1 bg-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-400 transition"
+                    >
+                        Cancelar
+                    </button>
+                    <button 
+                        id="btn-confirmar"
+                        class="flex-1 bg-padaria-red text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+                    >
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICAÇÕES -->
+    <div id="notificacoes" class="fixed top-4 right-4 z-50 space-y-2">
+        <!-- As notificações serão inseridas aqui via JavaScript -->
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js?v=1.0"></script>
+</body>
+</html>
